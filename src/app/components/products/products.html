@@ -1,0 +1,40 @@
+<h1>Total Order Price: {{totalOderPrice}}</h1>
+<h2>Selected Category ID: {{ selectedCategory?.id }}</h2>
+<h2>Selected Category Name: {{ selectedCategory?.name || 'All' }}</h2>
+<div class="mb-3">
+                                                                             <!-- Two way binding -->
+    <select class="form-select form-select-lg" name="category" id="category" [(ngModel)]="selectedCategory">
+        <option [ngValue]="null">All Categories</option>
+        <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
+    </select>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+ <ng-container *ngFor="let prd of filteredProducts ;trackBy:trackItem">
+   <div class="col"   *ngIf="prd.quantity > 0">
+    <div class="card h-100">
+      <!-- [] => property binding -->
+      <img [src]="prd.imgUrl" class="card-img-top" alt="{{prd.name}}"/>
+      <div class="card-body"
+      [style.background-color]="prd.quantity === 0 ? 'red' : 'white'"
+      >
+        <!-- {{}} => interpolation -->
+        <h5 class="card-title">{{prd.name}}</h5>
+        <p class="card-text">Price : {{prd.price}}</p>
+        
+        
+        <p class="card-text" *ngIf="prd.quantity !=1; else lastItem" >Quantity : {{prd.quantity}}</p>
+        <ng-template #lastItem>
+          <p class="card-text" style="color: red; font-size: larger;">Last Item</p>
+        </ng-template>
+       
+       
+        <input type="number" #countInp class="form-control" placeholder="Enter Quantity"/>
+        <!-- event binding -->
+        <button class="btn btn-primary mt-2" (click)="buy(countInp.value, prd)">Add To Cart</button>
+      </div>
+    </div>
+  </div>
+ </ng-container>
+</div>
