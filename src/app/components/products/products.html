@@ -14,11 +14,11 @@
 <div class="row row-cols-1 row-cols-md-4 g-4">
  <!-- <ng-container *ngFor="let prd of filteredProducts ;trackBy:trackItem"> -->
   @for(prd of filteredProducts ;track prd.id;let i = $index){
-    <div class="col" appHighlightCard overcolor="gray" outcolor="yellow"   *ngIf="prd.quantity > 0">
-    <div class="card h-100" >
+    <div class="col"   *ngIf="prd.quantity > 0">
+    <div class="card h-100"  >
       <!-- [] => property binding -->
       <img [src]="prd.imgUrl" class="card-img-top" alt="{{prd.name}}"/>
-      <div class="card-body" 
+      <div class="card-body"  appHighlightCard overcolor="gray" outcolor="yellow"
       [style.background-color]="prd.quantity === 0 ? 'red' : 'white'"
       >
         <!-- {{}} => interpolation -->

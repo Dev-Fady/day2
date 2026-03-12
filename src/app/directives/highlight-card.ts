@@ -1,19 +1,21 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnChanges } from '@angular/core';
 
 @Directive({
   selector: '[appHighlightCard]',
   standalone: true
 })
-export class HighlightCard {
+export class HighlightCard implements OnChanges {
 
   @Input() overcolor: string = 'white'
   @Input() outcolor: string = 'white'
 
   constructor(private ele:ElementRef) {
-    ele.nativeElement.style.backgroundColor = this.overcolor
+    // ele.nativeElement.style.backgroundColor = this.outcolor
     console.log(ele);
    }
-  
+  ngOnChanges(){
+    this.ele.nativeElement.style.backgroundColor = this.outcolor
+  }
   @HostListener('mouseover')
   over(){
     this.ele.nativeElement.style.backgroundColor = this.overcolor
