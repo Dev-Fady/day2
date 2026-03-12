@@ -13,6 +13,7 @@ export class HighlightCard implements OnChanges {
     // ele.nativeElement.style.backgroundColor = this.outcolor
     console.log(ele);
    }
+  //  lifecycle hook => ngOnChanges => called when any input property changes
   ngOnChanges(){
     this.ele.nativeElement.style.backgroundColor = this.outcolor
   }
