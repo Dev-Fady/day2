@@ -19,6 +19,8 @@ export class Products {
 
   selectedCategory: Icategory | null = null;
 
+  myDate:Date = new Date();
+
 
   constructor() {
     this.products = [
