@@ -11,8 +11,9 @@
 
 
 <div class="row row-cols-1 row-cols-md-4 g-4">
- <ng-container *ngFor="let prd of filteredProducts ;trackBy:trackItem">
-   <div class="col"   *ngIf="prd.quantity > 0">
+ <!-- <ng-container *ngFor="let prd of filteredProducts ;trackBy:trackItem"> -->
+  @for(prd of filteredProducts ;track prd.id;let i = $index){
+    <div class="col"   *ngIf="prd.quantity > 0">
     <div class="card h-100">
       <!-- [] => property binding -->
       <img [src]="prd.imgUrl" class="card-img-top" alt="{{prd.name}}"/>
@@ -24,11 +25,21 @@
         <p class="card-text">Price : {{prd.price}}</p>
         
         
-        <p class="card-text" *ngIf="prd.quantity !=1; else lastItem" >Quantity : {{prd.quantity}}</p>
+        <!-- <p class="card-text" *ngIf="prd.quantity !=1; else lastItem" >Quantity : {{prd.quantity}}</p>
         <ng-template #lastItem>
           <p class="card-text" style="color: red; font-size: larger;">Last Item</p>
-        </ng-template>
-       
+        </ng-template> -->
+       @switch(prd.quantity){
+        @case(1){
+          <p class="card-text" style="color: red; font-size: larger;">Last Item</p>
+        }
+        @case(2){
+          <p class="card-text" style="color: red; font-size: larger;">Last 2 Item</p>
+        }
+        @default{
+          <p class="card-text">Quantity : {{prd.quantity}}</p>
+        }
+       }
        
         <input type="number" #countInp class="form-control" placeholder="Enter Quantity"/>
         <!-- event binding -->
@@ -36,5 +47,8 @@
       </div>
     </div>
   </div>
- </ng-container>
+  }@empty{
+    <h2>No Products Found</h2>
+  }
+ <!-- </ng-container> -->
 </div>
