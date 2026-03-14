@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output,} from '@angular/core';
 import { Iproduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
 import { Icategory } from '../../models/icategory';
@@ -13,15 +13,12 @@ import { HighlightCard } from '../../directives/highlight-card';
 })
 export class Products {
   products:Iproduct[];
-  categories:Icategory[];
 
+
+  @Input() selectedCategory: Icategory | null = null;
   totalOderPrice:number = 0;
-
-  selectedCategory: Icategory | null = null;
-
-  myDate:Date = new Date();
-
-
+  @Output() totalPriceChanged = new EventEmitter<number>();
+  
   constructor() {
     this.products = [
       {
@@ -114,11 +111,7 @@ export class Products {
       },
     ];
 
-    this.categories = [
-      {id:1, name:'Mobile'},
-      {id:2, name:'Laptop'},
-      {id:3, name:'Accessories'},
-    ]
+    
   }
 
   buy(count:string, product:Iproduct){
@@ -133,6 +126,9 @@ export class Products {
     this.totalOderPrice += quantity * product.price;
     
     product.quantity -= quantity;
+
+    // Emit the updated total price to the parent component
+    this.totalPriceChanged.emit(this.totalOderPrice);
   }
 
   get filteredProducts(): Iproduct[]{

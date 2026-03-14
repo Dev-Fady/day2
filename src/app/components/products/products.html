@@ -1,14 +1,4 @@
-<h2>{{ myDate | date:'fullDate' }}</h2>
-<h1>Total Order Price: {{totalOderPrice}}</h1>
-<h2>Selected Category ID: {{ selectedCategory?.id }}</h2>
-<h2>Selected Category Name: {{ selectedCategory?.name || 'All' }}</h2>
-<div class="mb-3">
-                                                                             <!-- Two way binding -->
-    <select class="form-select form-select-lg" name="category" id="category" [(ngModel)]="selectedCategory">
-        <option [ngValue]="null">All Categories</option>
-        <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
-    </select>
-</div>
+
 
 
 <div class="row row-cols-1 row-cols-md-4 g-4">
